@@ -1,19 +1,34 @@
 {
   "name": "berlin-public-transport-display",
-  "version": "1.0.0",
-  "description": "Displays information about bus and train schedules based on the vbb api",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-redux": "^7.1.3",
+    "react-scripts": "3.2.0",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@gitlab.com/nicufrm/berlin-public-transport-display.git"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "author": "Nicolae Farmache",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://gitlab.com/nicufrm/berlin-public-transport-display/issues"
-  },
-  "homepage": "https://gitlab.com/nicufrm/berlin-public-transport-display#readme"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

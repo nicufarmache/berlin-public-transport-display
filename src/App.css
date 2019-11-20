@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'Enhanced Dot Digital-7';
+  src: url('EnhancedDotDigital-7.woff2') format('woff2'),
+      url('EnhancedDotDigital-7.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bold Dot Digital-7';
+  src: url('BoldDotDigital-7.woff2') format('woff2'),
+      url('BoldDotDigital-7.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+body {
+  background-color: #101010;
+  color: darkorange;
+  font-family: 'Enhanced Dot Digital-7';
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
