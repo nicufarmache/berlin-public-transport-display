@@ -1,0 +1,19 @@
+{
+  "name": "berlin-public-transport-display",
+  "version": "1.0.0",
+  "description": "Displays information about bus and train schedules based on the vbb api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/nicufrm/berlin-public-transport-display.git"
+  },
+  "author": "Nicolae Farmache",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/nicufrm/berlin-public-transport-display/issues"
+  },
+  "homepage": "https://gitlab.com/nicufrm/berlin-public-transport-display#readme"
+}
