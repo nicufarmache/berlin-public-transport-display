@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import './Line.css';
 
 export default class App extends Component {
+  componentDidMount() {
+    this.interval = setInterval(() => this.setState({ minute: Math.floor(Date.now()/1000/60) }), 500);
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
 
   render() {
     const {entry} = this.props;
