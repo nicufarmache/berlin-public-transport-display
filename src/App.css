@@ -37,10 +37,11 @@ body {
 
 .header {
   font-family: Arial, Helvetica, sans-serif;
-  color: #d0d0d0;
+  background-color: #d0d0d0;
+  color: #000000;
   display: flex;
   width: 96%;
-  margin: 1% 2%;
+  padding: 1% 2%;
   justify-content: space-between;
   font-size: 4vw;
 }
@@ -59,8 +60,9 @@ body {
 
 .footer {
   font-family: Arial, Helvetica, sans-serif;
-  color: #d0d0d0;
+  background-color: #d0d0d0;
+  color: #000000;
   width: 96%;
-  margin: 1% 2%;
+  padding: 1% 2%;
   font-size: 4vw;
 }
