@@ -4,6 +4,7 @@
     margin: 1% 2%;
     justify-content: space-between;
     font-size: 4vw;
+    text-shadow: 0 0 0.3vw darkorange;
 }
 
 .line__name {
