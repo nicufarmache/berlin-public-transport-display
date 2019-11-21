@@ -39,9 +39,17 @@ export default class App extends Component {
       <div className='app'>
         {!loading && station &&
           <div className="list">
+            <header className="header">
+              <div className="header__name">Linie</div>
+              <div className="header__direction">Ziel</div>
+              <div className="header__time">Abfahrt in</div>
+            </header>
             {station.slice(0,5).map((entry, index) =>
             <Line entry={entry} key={index}/>
             )}
+            <footer className="footer">
+            Manteuffelstr./Köpenicker Str.
+            </footer>
           </div>
         }
       </div>

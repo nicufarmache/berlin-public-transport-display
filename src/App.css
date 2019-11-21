@@ -34,3 +34,33 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.header {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #d0d0d0;
+  display: flex;
+  width: 96%;
+  margin: 1% 2%;
+  justify-content: space-between;
+  font-size: 4vw;
+}
+.header__name {
+  width: 10%;
+}
+
+.header__direction {
+  width: 53%;
+}
+
+.header__time {
+  width: 37%;
+  text-align: right;
+}
+
+.footer {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #d0d0d0;
+  width: 96%;
+  margin: 1% 2%;
+  font-size: 4vw;
+}
