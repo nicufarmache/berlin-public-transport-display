@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Line from './Line';
+import Vbb from 'vbb-client';
 import './App.css';
 
-const api = {
-  station: 'https://3.vbb.transport.rest/stops/900000014104/departures'
-}
+const vbb = Vbb({
+  endpoint: "https://3.vbb.transport.rest"
+});
+const stationId = '900000014104';
 
 export default class App extends Component {
   constructor(props) {
@@ -16,10 +18,7 @@ export default class App extends Component {
   }
 
   loadData() {
-    fetch(api.station)
-    .then(response => {
-      return response.json()
-    })
+    vbb.departures(stationId, {duration: 180})
     .then(data => {
       console.log(data);
       this.setState((state) => {
@@ -40,8 +39,8 @@ export default class App extends Component {
       <div className='app'>
         {!loading && station &&
           <div className="list">
-            {station.map(entry =>
-            <Line entry={entry} />
+            {station.slice(0,5).map((entry, index) =>
+            <Line entry={entry} key={index}/>
             )}
           </div>
         }
