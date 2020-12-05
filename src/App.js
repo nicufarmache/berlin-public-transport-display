@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import Line from './Line';
-import Vbb from 'vbb-client';
+import Vbb from 'hafas-rest-api-client';
+import Board from './Board';
 import './App.css';
 
-const vbb = Vbb({
-  endpoint: "https://v5.vbb.transport.rest/"
-});
+const vbb = Vbb('https://v5.vbb.transport.rest', {
+	userAgent: 'berlin-bus-display-dev',
+})
+
 const stationId = '900000014104';
 
 export default class App extends Component {
@@ -18,13 +19,28 @@ export default class App extends Component {
   }
 
   loadData() {
-    vbb.departures(stationId, {duration: 180})
-    .then(data => {
-      console.log(data);
-      this.setState((state) => {
-        return {station: data, loading:false};
+    const posOK = position => {
+      vbb.nearby({latitude: position.coords.latitude, longitude: position.coords.longitude})
+        .then(data => {
+          console.log(data);
+          this.setState((state) => {
+            console.log(data);
+            return {station: data[0], loading:false};
+          });
+        })
+    }
+
+    const posERR = error => {
+      this.setState(() => {
+        return {station: {id: '900000014104', name: 'Manteuffelstr./Köpenicker Str. (GPS Err)'}, loading:false};
       });
-    })
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(posOK, posERR);
+    } else {
+      posERR()
+    }
   }
 
   componentDidMount() {
@@ -38,20 +54,9 @@ export default class App extends Component {
     return (
       <div className='app'>
         {!loading && station &&
-          <div className="list">
-            <header className="header">
-              <div className="header__name">Linie</div>
-              <div className="header__direction">Ziel</div>
-              <div className="header__time">Abfahrt in</div>
-            </header>
-            {station.slice(0,5).map((entry, index) =>
-            <Line entry={entry} key={index}/>
-            )}
-            <footer className="footer">
-            Manteuffelstr./Köpenicker Str.
-            </footer>
-          </div>
+          <Board station={station}/>
         }
+        {loading && 'Loading...'}
       </div>
     );
   }
