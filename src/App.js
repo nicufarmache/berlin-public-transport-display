@@ -4,7 +4,7 @@ import Vbb from 'vbb-client';
 import './App.css';
 
 const vbb = Vbb({
-  endpoint: "https://3.vbb.transport.rest"
+  endpoint: "https://v5.vbb.transport.rest/"
 });
 const stationId = '900000014104';
 
