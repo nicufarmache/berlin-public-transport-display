@@ -30,7 +30,8 @@ body {
 }
 
 .list{
-  width: 100%;
+  width: 100vw;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -40,29 +41,39 @@ body {
   background-color: #a0a0a0;
   color: #000000;
   display: flex;
-  width: 96%;
-  padding: 1% 2%;
+  width: 96vw;
+  padding: 1vw 2vw;
   justify-content: space-between;
   font-size: 4vw;
 }
 .header__name {
-  width: 10%;
+  width: 15vw;
 }
 
 .header__direction {
-  width: 53%;
+  width: 53vw;
 }
 
 .header__time {
-  width: 37%;
+  width: 37vw;
   text-align: right;
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vw;
+  margin: 1vw 0;
+  overflow: auto;
+  max-height: 49vw;
 }
 
 .footer {
   font-family: Arial, Helvetica, sans-serif;
   background-color: #a0a0a0;
   color: #000000;
-  width: 96%;
-  padding: 1% 2%;
+  width: 96vw;
+  padding: 1vw 2vw;
   font-size: 4vw;
 }

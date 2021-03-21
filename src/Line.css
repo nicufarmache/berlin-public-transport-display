@@ -1,22 +1,27 @@
 .line{
     display: flex;
-    width: 96%;
-    margin: 1% 2%;
+    width: 96vw;
     justify-content: space-between;
     font-size: 4vw;
     text-shadow: 0 0 0.3vw darkorange;
+    white-space: nowrap;
 }
 
 .line__name {
-    width: 10%;
+    width: 13vw;
+    margin-right: 1vw;
     font-family: 'Bold Dot Digital-7';
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .line__direction {
-    width: 73%;
+    width: 65vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .line__time {
-    width: 17%;
+    width: 17vw;
     text-align: right;
 }

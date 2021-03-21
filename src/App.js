@@ -7,7 +7,10 @@ const vbb = Vbb('https://v5.vbb.transport.rest', {
 	userAgent: 'berlin-bus-display-dev',
 })
 
-const stationId = '900000014104';
+const defaultStation = {
+  id: '900000014104',
+  name: 'Manteuffelstr./Köpenicker Str. (GPS Err)'
+};
 
 export default class App extends Component {
   constructor(props) {
@@ -15,11 +18,15 @@ export default class App extends Component {
     this.state = {
       station: null,
       loading: true,
+      message: 'Loading...',
     };
   }
 
   loadData() {
     const posOK = position => {
+      this.setState(() => {
+        return {message: 'Loading station...'};
+      });
       vbb.nearby({latitude: position.coords.latitude, longitude: position.coords.longitude})
         .then(data => {
           console.log(data);
@@ -28,16 +35,21 @@ export default class App extends Component {
             return {station: data[0], loading:false};
           });
         })
+      navigator.geolocation.watchPosition(posOK, posERR);
     }
 
     const posERR = error => {
       this.setState(() => {
-        return {station: {id: '900000014104', name: 'Manteuffelstr./Köpenicker Str. (GPS Err)'}, loading:false};
+        return {station: defaultStation, loading:false, message: 'Loading default station...'};
       });
     }
 
+    this.setState(() => {
+      return {message: 'Loading location...'};
+    });
+
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(posOK, posERR);
+      navigator.geolocation.getCurrentPosition(posOK, posERR, {timeout: 15000});
     } else {
       posERR()
     }
@@ -45,18 +57,18 @@ export default class App extends Component {
 
   componentDidMount() {
     this.loadData();
-    setInterval(this.loadData.bind(this),30000);
+    //setInterval(this.loadData.bind(this),30000);
   }
 
   render() {
-    const {loading, station} = this.state;
+    const {loading, station, message} = this.state;
 
     return (
       <div className='app'>
         {!loading && station &&
           <Board station={station}/>
         }
-        {loading && 'Loading...'}
+        {loading && message}
       </div>
     );
   }

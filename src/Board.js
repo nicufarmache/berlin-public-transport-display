@@ -6,7 +6,7 @@ import './Board.css';
 const vbb = Vbb('https://v5.vbb.transport.rest', {
 	userAgent: 'berlin-bus-display-dev',
 })
-const stationId = '900000014104';
+//const stationId = '900000014104';
 
 export default class Board extends Component {
   constructor(props) {
@@ -45,9 +45,11 @@ export default class Board extends Component {
               <div className="header__direction">Ziel</div>
               <div className="header__time">Abfahrt in</div>
             </header>
-            {station.slice(0,5).map((entry, index) =>
-            <Line entry={entry} key={index}/>
-            )}
+            <div className="lines">
+              {station.slice(0,200).map((entry, index) =>
+              <Line entry={entry} key={index}/>
+              )}
+            </div>
             <footer className="footer">
             {selectedStation.name}
             </footer>
