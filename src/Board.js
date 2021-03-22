@@ -4,11 +4,11 @@ import './Board.css';
 export default class Board extends Component {
   render() {
     const selectedStation = this.props.station;
-    const boardData = this.props.board;
+    const {board, animate} = this.props;
 
     return (
       <div className='board'>
-        {boardData &&
+        {board &&
           <div className="list">
             <header className="header">
               <div className="header__name">Linie</div>
@@ -16,8 +16,8 @@ export default class Board extends Component {
               <div className="header__time">Abfahrt in</div>
             </header>
             <div className="lines">
-              {boardData.slice(0,200).map((entry, index) =>
-              <Line entry={entry} key={index}/>
+              {board.slice(0,200).map((entry, index) =>
+              <Line entry={entry} key={index} animate={animate}/>
               )}
             </div>
             <footer className="footer">

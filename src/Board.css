@@ -41,6 +41,10 @@
   overflow: auto;
   max-height: 49vw;
 }
+.lines::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
 
 .footer {
   font-family: Arial, Helvetica, sans-serif;

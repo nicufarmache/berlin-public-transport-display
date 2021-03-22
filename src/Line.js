@@ -3,14 +3,14 @@ import './Line.css';
 
 export default class Line extends Component {
   render() {
-    const {entry} = this.props;
+    const { entry, animate } = this.props;
 
     const dateDep = new Date(entry.when);
     const DateNow = new Date();
     const seconds = (dateDep.getTime() - DateNow.getTime()) / 1000;
 
     return (
-      <div className={`line ${(seconds<0) ? 'blink' : ''}`}>
+      <div className={`line ${(animate && seconds<0) ? 'blink' : ''}`}>
           <div className="line__name">{entry.line.name}</div>
           <div className="line__direction">{entry.direction}</div>
           <div className="line__time">

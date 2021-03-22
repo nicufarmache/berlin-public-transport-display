@@ -21,27 +21,23 @@ export default class App extends Component {
       board: null,
       loading: true,
       message: 'Loading...',
+      minute: 0,
+      animate: true,
     };
   }
 
   loadStation() {
     const position = this.state.position;
 
-    this.setState(() => {
-      return {message: 'Loading station...'};
-    });
+    this.setState({message: 'Loading station...'});
 
     vbb.nearby({latitude: position.coords.latitude, longitude: position.coords.longitude})
       .then(data => {
         if(!data[0]) {
-          this.setState((state) => {
-            return {station: null, loading: true, message: 'No station found in yor proximity'};
-          });
+          this.setState({station: null, loading: true, message: 'No station found in yor proximity'});
         } else {
           const isDifferent = this.state.station && this.state.station.id !== data[0].id ;
-          this.setState((state) => {
-            return {station: data[0], loading: isDifferent};
-          });
+          this.setState({station: data[0], loading: isDifferent});
           this.loadBoard();
         }
       })
@@ -53,24 +49,18 @@ export default class App extends Component {
           this.state.position.coords.latitude === position.coords.latitude &&
           this.state.position.coords.longitude === position.coords.longitude) return;
 
-      this.setState((state) => {
-        return {position};
-      });
+      this.setState({position});
 
       this.loadStation();
     }
 
     const posERR = error => {
-      this.setState(() => {
-        return {station: defaultStation, loading: true, message: 'Loading default station...'};
-      });
+      this.setState({station: defaultStation, loading: true, message: 'Loading default station...'});
       this.loadBoard();
     }
 
     if (navigator.geolocation) {
-      this.setState(() => {
-        return {message: 'Loading location...'};
-      });
+      this.setState({message: 'Loading location...'});
       navigator.geolocation.watchPosition(checkPos, posERR, {timeout: 15000});
     } else {
       posERR();
@@ -78,37 +68,55 @@ export default class App extends Component {
   }
 
   loadBoard() {
-    this.interval && clearInterval(this.interval);
+    this.refreshInterval && clearInterval(this.refreshInterval);
     if (!this.state.station) return;
 
-    this.setState(() => {
-      return {message: `Loading board for ${this.state.station.name}...`};
-    });
+    this.setState({message: `Loading board for ${this.state.station.name}...`});
 
     vbb.departures(this.state.station.id, {duration: 180})
     .then(data => {
-      this.setState((state) => {
-        return {board: data, loading: !data, message: `No data for ${this.state.station.name}`};
-      });
-      this.interval = setInterval(this.loadBoard.bind(this),30000);
+      this.setState({board: data, loading: !data, message: `No data for ${this.state.station.name}`});
+      this.refreshInterval = setInterval(this.loadBoard.bind(this),30000);
+      this.resetAnimation();
     })
+  }
+
+  setupTimeUpdate() {
+    this.refreshTimeInterval = setInterval(() => {
+      const currentMin = Math.floor(Date.now()/1000/60)
+      if (this.state.minute !== currentMin){
+        this.setState({ minute:  currentMin})
+        this.resetAnimation();
+      }
+    }, 500);
+  }
+
+  resetAnimation() {
+    this.resetAnimationTimeout && clearTimeout(this.resetAnimationTimeout)
+    this.setState({ animate: false });
+    this.resetAnimationTimeout = setTimeout(() => {
+      this.setState({ animate: true });
+    }, 1);
   }
 
   componentDidMount() {
     this.loadData();
+    this.setupTimeUpdate();
   }
 
   componentWillUnmount(){
-    this.interval && clearInterval(this.interval);
+    this.refreshInterval && clearInterval(this.refreshInterval);
+    this.refreshTimeInterval && clearInterval(this.refreshTimeInterval);
+    this.resetAnimationTimeout && clearTimeout(this.resetAnimationTimeout)
   }
 
   render() {
-    const {loading, station, board, message} = this.state;
+    const {loading, station, board, message, animate} = this.state;
 
     return (
       <div className='app'>
         {!loading && station &&
-          <Board station={station} board={board}/>
+          <Board station={station} board={board} animate={animate}/>
         }
         {loading && message}
       </div>
