@@ -37,8 +37,9 @@ export default class App extends Component {
           this.setState({station: null, loading: true, message: 'No station found in yor proximity'});
         } else {
           const isDifferent = this.state.station && this.state.station.id !== data[0].id ;
-          this.setState({station: data[0], loading: isDifferent});
-          this.loadBoard();
+          this.setState({station: data[0], loading: isDifferent}, () => {
+            this.loadBoard();
+          });
         }
       })
   }
@@ -49,17 +50,24 @@ export default class App extends Component {
           this.state.position.coords.latitude === position.coords.latitude &&
           this.state.position.coords.longitude === position.coords.longitude) return;
 
-      this.setState({position});
-
-      this.loadStation();
+      this.setState({position}, () => {
+        this.loadStation();
+      });
     }
 
     const posERR = error => {
-      this.setState({station: defaultStation, loading: true, message: 'Loading default station...'});
-      this.loadBoard();
+      this.setState({station: defaultStation, loading: true, message: 'Loading default station...'}, () => {
+        this.loadBoard();
+      });
     }
 
-    if (navigator.geolocation) {
+    const searchParams = new URLSearchParams(window.location.search);
+    const lat = searchParams.get('lat');
+    const long = searchParams.get('long');
+
+    if (lat && long) {
+      checkPos({coords: {latitude: lat, longitude: long}})
+    } else if (navigator.geolocation) {
       this.setState({message: 'Loading location...'});
       navigator.geolocation.watchPosition(checkPos, posERR, {timeout: 15000});
     } else {
@@ -93,10 +101,11 @@ export default class App extends Component {
 
   resetAnimation() {
     this.resetAnimationTimeout && clearTimeout(this.resetAnimationTimeout)
-    this.setState({ animate: false });
-    this.resetAnimationTimeout = setTimeout(() => {
-      this.setState({ animate: true });
-    }, 1);
+    this.setState({ animate: false }, () => {
+      this.resetAnimationTimeout = setTimeout(() => {
+        this.setState({ animate: true });
+      }, 1);
+    });
   }
 
   componentDidMount() {
