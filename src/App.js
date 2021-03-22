@@ -22,7 +22,6 @@ export default class App extends Component {
       loading: true,
       message: 'Loading...',
       minute: 0,
-      animate: true,
     };
   }
 
@@ -85,7 +84,6 @@ export default class App extends Component {
     .then(data => {
       this.setState({board: data, loading: !data, message: `No data for ${this.state.station.name}`});
       this.refreshInterval = setInterval(this.loadBoard.bind(this),30000);
-      this.resetAnimation();
     })
   }
 
@@ -94,18 +92,8 @@ export default class App extends Component {
       const currentMin = Math.floor(Date.now()/1000/60)
       if (this.state.minute !== currentMin){
         this.setState({ minute:  currentMin})
-        this.resetAnimation();
       }
     }, 500);
-  }
-
-  resetAnimation() {
-    this.resetAnimationTimeout && clearTimeout(this.resetAnimationTimeout)
-    this.setState({ animate: false }, () => {
-      this.resetAnimationTimeout = setTimeout(() => {
-        this.setState({ animate: true });
-      }, 1);
-    });
   }
 
   componentDidMount() {
@@ -116,16 +104,15 @@ export default class App extends Component {
   componentWillUnmount(){
     this.refreshInterval && clearInterval(this.refreshInterval);
     this.refreshTimeInterval && clearInterval(this.refreshTimeInterval);
-    this.resetAnimationTimeout && clearTimeout(this.resetAnimationTimeout)
   }
 
   render() {
-    const {loading, station, board, message, animate} = this.state;
+    const {loading, station, board, message, minute} = this.state;
 
     return (
       <div className='app'>
         {!loading && station &&
-          <Board station={station} board={board} animate={animate}/>
+          <Board station={station} board={board} minute={minute}/>
         }
         {loading && message}
       </div>

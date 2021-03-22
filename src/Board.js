@@ -4,7 +4,7 @@ import './Board.css';
 export default class Board extends Component {
   render() {
     const selectedStation = this.props.station;
-    const {board, animate} = this.props;
+    const {board, minute} = this.props;
 
     return (
       <div className='board'>
@@ -17,7 +17,7 @@ export default class Board extends Component {
             </header>
             <div className="lines">
               {board.slice(0,200).map((entry, index) =>
-              <Line entry={entry} key={index} animate={animate}/>
+              <Line entry={entry} key={index} minute={minute}/>
               )}
             </div>
             <footer className="footer">

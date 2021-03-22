@@ -3,7 +3,7 @@ import './Line.css';
 
 export default class Line extends Component {
   render() {
-    const { entry, animate } = this.props;
+    const { entry } = this.props;
 
     const dateDep = new Date(entry.when);
     const DateNow = new Date();
@@ -12,7 +12,7 @@ export default class Line extends Component {
     return (
       <div className={"line"}>
           <div className="line__name">{entry.line.name}</div>
-          <div className={`line__direction ${(animate && seconds<0) ? 'blink' : ''}`}>{entry.direction}</div>
+          <div className={`line__direction ${(seconds<0) ? 'blink' : ''}`}>{entry.direction}</div>
           <div className="line__time">
             {(seconds<0) &&
                 <span></span>

@@ -1,9 +1,3 @@
-@keyframes blinker {
-    50% {
-        opacity: 0;
-    }
-}
-
 .line{
     display: flex;
     width: 96vw;
@@ -14,7 +8,8 @@
 }
 
 .blink {
-    animation: blinker 2s cubic-bezier(0.75, 0, 0.25, 1) infinite;
+    opacity: var(--blinking-opacity);
+    transition: opacity 0.1s;
 }
 
 .line__name {
