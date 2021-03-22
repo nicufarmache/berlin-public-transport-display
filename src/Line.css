@@ -13,7 +13,7 @@
     white-space: nowrap;
 }
 
-.line.blink {
+.blink {
     animation: blinker 2s cubic-bezier(0.75, 0, 0.25, 1) infinite;
 }
 

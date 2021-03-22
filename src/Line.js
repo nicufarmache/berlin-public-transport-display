@@ -10,9 +10,9 @@ export default class Line extends Component {
     const seconds = (dateDep.getTime() - DateNow.getTime()) / 1000;
 
     return (
-      <div className={`line ${(animate && seconds<0) ? 'blink' : ''}`}>
+      <div className={"line"}>
           <div className="line__name">{entry.line.name}</div>
-          <div className="line__direction">{entry.direction}</div>
+          <div className={`line__direction ${(animate && seconds<0) ? 'blink' : ''}`}>{entry.direction}</div>
           <div className="line__time">
             {(seconds<0) &&
                 <span></span>
