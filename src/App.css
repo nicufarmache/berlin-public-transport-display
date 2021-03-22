@@ -14,16 +14,12 @@
   font-style: normal;
 }
 
-@keyframes blinker {
-  50% {
-      --blinking-opacity: 0;
-  }
+:root {
+  --blinking-opacity: 1;
 }
-
 
 html {
   height: 100%;
-  animation: blinker 1.3s cubic-bezier(0.75, 0, 0.25, 1) infinite;
 }
 
 body {

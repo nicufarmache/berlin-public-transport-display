@@ -96,14 +96,27 @@ export default class App extends Component {
     }, 500);
   }
 
+  setupBlink() {
+    let root = document.documentElement;
+    let opacity = 1;
+
+    this.blinkInterval && clearInterval(this.blinkInterval);
+    this.blinkInterval = setInterval(() => {
+      opacity = 1 - opacity;
+      root.style.setProperty('--blinking-opacity', opacity);
+    }, 700);
+  }
+
   componentDidMount() {
     this.loadData();
     this.setupTimeUpdate();
+    this.setupBlink();
   }
 
   componentWillUnmount(){
     this.refreshInterval && clearInterval(this.refreshInterval);
     this.refreshTimeInterval && clearInterval(this.refreshTimeInterval);
+    this.blinkInterval && clearInterval(this.blinkInterval);
   }
 
   render() {

@@ -18,6 +18,7 @@
   padding: 1vw 2vw;
   justify-content: space-between;
   font-size: 4vw;
+  flex-shrink: 0;
 }
 .header__name {
   width: 15vw;
@@ -53,4 +54,5 @@
   width: 96vw;
   padding: 1vw 2vw;
   font-size: 4vw;
+  flex-shrink: 0;
 }
