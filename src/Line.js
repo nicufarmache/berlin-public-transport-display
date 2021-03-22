@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import './Line.css';
 
-export default class App extends Component {
-  componentDidMount() {
-    this.interval = setInterval(() => this.setState({ minute: Math.floor(Date.now()/1000/60) }), 500);
-  }
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
+export default class Line extends Component {
   render() {
     const {entry} = this.props;
 
@@ -17,12 +10,12 @@ export default class App extends Component {
     const seconds = (dateDep.getTime() - DateNow.getTime()) / 1000;
 
     return (
-      <div className="line">
+      <div className={`line ${(seconds<0) ? 'blink' : ''}`}>
           <div className="line__name">{entry.line.name}</div>
           <div className="line__direction">{entry.direction}</div>
           <div className="line__time">
             {(seconds<0) &&
-                <span>Now</span>
+                <span></span>
             }
             {(seconds>=0) && (seconds<3600) &&
                 <span>{Math.ceil(seconds/60)} min</span>
