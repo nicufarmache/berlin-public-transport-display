@@ -9,7 +9,7 @@ const vbb = Vbb('https://v5.vbb.transport.rest', {
 
 const defaultStation = {
   id: '900000014104',
-  name: 'Manteuffelstr./Köpenicker Str. (GPS Err)'
+  name: 'Manteuffelstr./Köpenicker Str. (Location Error)'
 };
 
 export default class App extends Component {
