@@ -25,7 +25,7 @@ export default class App extends Component {
     };
   }
 
-  loadStation() {
+  loadStation({fallback}) {
     const position = this.state.position;
 
     this.setState({message: 'Loading station...'});
@@ -41,22 +41,23 @@ export default class App extends Component {
           });
         }
       })
+      .catch(fallback)
   }
 
   loadData() {
+    const posERR = error => {
+      this.setState({station: defaultStation, loading: true, message: 'Loading default station...'}, () => {
+        this.loadBoard();
+      });
+    }
+
     const checkPos = position => {
       if (this.state.position &&
           this.state.position.coords.latitude === position.coords.latitude &&
           this.state.position.coords.longitude === position.coords.longitude) return;
 
       this.setState({position}, () => {
-        this.loadStation();
-      });
-    }
-
-    const posERR = error => {
-      this.setState({station: defaultStation, loading: true, message: 'Loading default station...'}, () => {
-        this.loadBoard();
+        this.loadStation({fallback: posERR});
       });
     }
 
@@ -84,6 +85,9 @@ export default class App extends Component {
     .then(data => {
       this.setState({board: data, loading: !data, message: `No data for ${this.state.station.name}`});
       this.refreshInterval = setInterval(this.loadBoard.bind(this),30000);
+    })
+    .catch(e => {
+      this.setState({message: `Error loading board`});
     })
   }
 
