@@ -84,7 +84,7 @@ export default class App extends Component {
 
     this.setState({message: `Loading board for ${this.state.station.name}...`});
 
-    vbb.departures(this.state.station.id, {duration: 180})
+    vbb.departures(this.state.station.id, {duration: 180, linesOfStops: false, remarks: false})
     .then(data => {
       this.setState({board: data, loading: !data, message: `No data for ${this.state.station.name}`});
       this.refreshInterval = setInterval(this.loadBoard.bind(this),30000);
