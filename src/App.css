@@ -26,8 +26,18 @@ body {
   background-color: #101010;
   color: darkorange;
   font-family: 'Enhanced Dot Digital-7';
+  font-size: 4vw;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#root {
+  height: 100%;
+}
+.app {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
