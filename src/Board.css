@@ -40,7 +40,8 @@
   gap: 1vw;
   margin: 1vw 0;
   overflow: auto;
-  max-height: 49vw;
+  max-height: 100vh;
+  min-height: 49vw;
 }
 .lines::-webkit-scrollbar {
   width: 0px;
