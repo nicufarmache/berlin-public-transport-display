@@ -3,8 +3,8 @@ import Vbb from 'hafas-rest-api-client';
 import Board from './Board';
 import './App.css';
 
-//const apiEndpoint = 'https://v5.vbb.transport.rest';
-const apiEndpoint = 'http://v5-vbb.nicu.ro:3000';
+const apiEndpoint = 'https://v5.vbb.transport.rest';
+//const apiEndpoint = 'http://v5-vbb.nicu.ro:3000';
 
 const vbb = Vbb(apiEndpoint, {
 	userAgent: 'berlin-bus-display-dev',
