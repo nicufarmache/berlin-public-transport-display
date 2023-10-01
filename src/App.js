@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Vbb from './hafas-rest-api-client-v6.js';
 import Board from './Board';
 import './App.css';
