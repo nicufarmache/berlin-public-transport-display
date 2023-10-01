@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import Vbb from 'hafas-rest-api-client';
+import Vbb from './hafas-rest-api-client-v6.js';
 import Board from './Board';
 import './App.css';
 
-//const apiEndpoint = 'https://v5.vbb.transport.rest';
-const apiEndpoint = 'https://v5-vbb.nicu.ro';
+const apiEndpoint = 'https://v6-vbb.nicu.ro';
 
 const vbb = Vbb(apiEndpoint, {
 	userAgent: 'berlin-bus-display-dev',
@@ -86,7 +85,7 @@ export default class App extends Component {
 
     vbb.departures(this.state.station.id, {duration: 180, linesOfStops: false, remarks: false})
     .then(data => {
-      this.setState({board: data, loading: !data, message: `No data for ${this.state.station.name}`});
+      this.setState({board: data?.departures, loading: !data, message: `No data for ${this.state.station.name}`});
       this.refreshInterval = setInterval(this.loadBoard.bind(this),30000);
     })
     .catch(e => {
