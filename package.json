@@ -3,7 +3,7 @@
   "version": "1.2.1",
   "private": true,
   "dependencies": {
-    "hafas-rest-api-client": "^2.1.0",
+    "hafas-rest-api-client": "github:nicufarmache/hafas-rest-api-client#6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.3",

@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import Vbb from './hafas-rest-api-client-v6.js';
+import Vbb from 'hafas-rest-api-client';
 import Board from './Board';
 import './App.css';
 
