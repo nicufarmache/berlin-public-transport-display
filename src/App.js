@@ -10,8 +10,8 @@ const vbb = Vbb(apiEndpoint, {
 })
 
 const defaultStation = {
-  id: '900000014104',
-  name: 'Manteuffelstr./Köpenicker Str. (Location Error)'
+  id: '900014104',
+  name: 'Audre-Lorde-Str. (Berlin) (Location Error)'
 };
 
 export default class App extends Component {
