@@ -61,5 +61,36 @@ describe('Board and Line components', () => {
     expect(screen.getByText('S7')).toBeInTheDocument();
     expect(screen.getByText('Ahrensfelde')).toBeInTheDocument();
     expect(screen.getByText('8 min')).toBeInTheDocument();
+    expect(screen.getByLabelText('8 Minuten')).toBeInTheDocument();
+  });
+
+  it('falls back to plannedWhen if when is missing', () => {
+    const entry = {
+      line: { name: 'RE1' },
+      direction: 'Magdeburg',
+      plannedWhen: new Date(Date.now() + 15 * 60000).toISOString(),
+    };
+
+    render(<Line entry={entry} />);
+    expect(screen.getByText('RE1')).toBeInTheDocument();
+    expect(screen.getByText('Magdeburg')).toBeInTheDocument();
+    expect(screen.getByText('15 min')).toBeInTheDocument();
+  });
+
+  it('renders accessible list and region elements in Board', () => {
+    const mockStation = { id: '123', name: 'Berlin Hbf' };
+    const mockBoard = [
+      {
+        tripId: '1',
+        line: { name: 'S5' },
+        direction: 'Spandau',
+        when: new Date(Date.now() + 2 * 60000).toISOString(),
+      },
+    ];
+
+    render(<Board station={mockStation} board={mockBoard} minute={0} />);
+    expect(screen.getByRole('region', { name: /Abfahrten für Berlin Hbf/i })).toBeInTheDocument();
+    expect(screen.getByRole('list', { name: /Abfahrtsliste/i })).toBeInTheDocument();
+    expect(screen.getByRole('listitem', { name: /S5 nach Spandau/i })).toBeInTheDocument();
   });
 });

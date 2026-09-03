@@ -155,11 +155,15 @@ export default function App() {
   }, [loadStation]);
 
   return (
-    <div className="app">
+    <main className="app">
       {!loading && station && (
         <Board station={station} board={board} minute={minute} />
       )}
-      {loading && message}
-    </div>
+      {loading && (
+        <div role="status" aria-live="polite" className="status-message">
+          {message}
+        </div>
+      )}
+    </main>
   );
 }
