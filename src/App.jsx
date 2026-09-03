@@ -28,27 +28,21 @@ export default function App() {
   const stationRef = useRef(station);
   stationRef.current = station;
 
-  // Blinking CSS variable animation
+  // Minute tick update for relative time recalculations aligned to minute boundaries
   useEffect(() => {
-    const root = document.documentElement;
-    let opacity = 1;
+    let timerId;
 
-    const blinkInterval = setInterval(() => {
-      opacity = 1 - opacity;
-      root.style.setProperty('--blinking-opacity', String(opacity));
-    }, 700);
+    const scheduleNextMinuteTick = () => {
+      const now = Date.now();
+      setMinute(Math.floor(now / 60000));
 
-    return () => clearInterval(blinkInterval);
-  }, []);
+      const msUntilNextMinute = 60000 - (now % 60000) + 50;
+      timerId = setTimeout(scheduleNextMinuteTick, msUntilNextMinute);
+    };
 
-  // Minute tick update for relative time recalculations
-  useEffect(() => {
-    const refreshTimeInterval = setInterval(() => {
-      const currentMin = Math.floor(Date.now() / 1000 / 60);
-      setMinute(prev => (prev !== currentMin ? currentMin : prev));
-    }, 500);
+    scheduleNextMinuteTick();
 
-    return () => clearInterval(refreshTimeInterval);
+    return () => clearTimeout(timerId);
   }, []);
 
   const loadBoardForStation = useCallback(async (currentStation) => {

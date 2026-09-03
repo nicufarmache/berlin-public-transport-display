@@ -14,8 +14,27 @@
   font-style: normal;
 }
 
+@property --blinking-opacity {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@keyframes global-blink {
+  0%, 40% {
+    --blinking-opacity: 1;
+  }
+  50%, 90% {
+    --blinking-opacity: 0;
+  }
+  100% {
+    --blinking-opacity: 1;
+  }
+}
+
 :root {
   --blinking-opacity: 1;
+  animation: global-blink 1.4s ease-in-out infinite;
 }
 
 html {

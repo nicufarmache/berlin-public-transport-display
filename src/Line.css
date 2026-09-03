@@ -10,7 +10,6 @@
 
 .blink {
     opacity: var(--blinking-opacity);
-    transition: opacity .3s;
 }
 
 .line__name {
